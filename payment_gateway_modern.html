@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment - DhanXzz</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+    }
+    
+    body::before {
+        content: '';
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(0,245,255,0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: gridMove 20s linear infinite;
+        z-index: 0;
+    }
+    
+    @keyframes gridMove {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(50px, 50px); }
+    }
+    
+    .container {
+        width: 100%;
+        max-width: 480px;
+        background: rgba(15, 15, 25, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 245, 255, 0.15);
+        border-radius: 24px;
+        padding: 32px 28px;
+        box-shadow: 0 8px 60px rgba(0, 245, 255, 0.08), 0 0 1px rgba(0, 245, 255, 0.3);
+        animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        z-index: 1;
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .brand {
+        text-align: center;
+        font-size: 42px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #00f5ff 0%, #a855f7 50%, #ec4899 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 3s ease infinite;
+        margin-bottom: 8px;
+        letter-spacing: -0.5px;
+    }
+    
+    @keyframes gradientShift {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+    }
+    
+    .subtitle {
+        text-align: center;
+        font-size: 14px;
+        color: #888;
+        margin-bottom: 32px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+    
+    .guide-box {
+        background: linear-gradient(135deg, rgba(0, 245, 255, 0.05), rgba(168, 85, 247, 0.05));
+        border: 1px solid rgba(0, 245, 255, 0.2);
+        border-radius: 16px;
+        padding: 20px;
+        margin-bottom: 24px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .guide-box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+        animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+    
+    .guide-title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #00f5ff;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .guide-steps {
+        font-size: 14px;
+        color: #ccc;
+        line-height: 1.9;
+    }
+    
+    .warning-box {
+        background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(168, 85, 247, 0.1));
+        border: 2px solid rgba(236, 72, 153, 0.5);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 32px;
+        text-align: center;
+        animation: pulseGlow 3s ease-in-out infinite;
+        position: relative;
+    }
+    
+    @keyframes pulseGlow {
+        0%, 100% {
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+            transform: scale(1);
+        }
+        50% {
+            box-shadow: 0 0 35px rgba(236, 72, 153, 0.5);
+            transform: scale(1.01);
+        }
+    }
+    
+    .warning-title {
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 10px;
+        font-size: 17px;
+        letter-spacing: 0.3px;
+    }
+    
+    .warning-text {
+        color: #ddd;
+        font-size: 14px;
+        margin-bottom: 18px;
+        line-height: 1.5;
+    }
+    
+    .contact-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .contact-btn {
+        background: rgba(236, 72, 153, 0.2);
+        border: 1px solid rgba(236, 72, 153, 0.5);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 12px;
+        padding: 12px 24px;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .contact-btn:hover {
+        background: rgba(236, 72, 153, 0.35);
+        box-shadow: 0 6px 24px rgba(236, 72, 153, 0.4);
+        transform: translateY(-2px);
+    }
+    
+    .section-title {
+        font-size: 11px;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: #666;
+        font-weight: 700;
+        margin-bottom: 16px;
+        padding-left: 4px;
+    }
+    
+    .payment-card {
+        background: rgba(20, 20, 30, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        margin-bottom: 12px;
+        padding: 20px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .payment-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0, 245, 255, 0.05), rgba(168, 85, 247, 0.05));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .payment-card:hover {
+        border-color: rgba(0, 245, 255, 0.4);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 245, 255, 0.15);
+    }
+    
+    .payment-card:hover::before {
+        opacity: 1;
+    }
+    
+    .payment-card.active {
+        background: rgba(0, 245, 255, 0.08);
+        border-color: #00f5ff;
+        box-shadow: 0 4px 24px rgba(0, 245, 255, 0.2);
+    }
+    
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .card-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    .method-icon {
+        font-size: 32px;
+        filter: drop-shadow(0 2px 8px rgba(0, 245, 255, 0.3));
+    }
+    
+    .method-name {
+        font-size: 19px;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+    }
+    
+    .method-tag {
+        font-size: 12px;
+        color: #00f5ff;
+        margin-top: 2px;
+        font-weight: 500;
+    }
+    
+    .arrow {
+        font-size: 24px;
+        color: #555;
+        transition: all 0.3s ease;
+        font-weight: 300;
+    }
+    
+    .payment-card.active .arrow {
+        transform: rotate(90deg);
+        color: #00f5ff;
+    }
+    
+    .card-details {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        z-index: 1;
+    }
+    
+    .payment-card.active .card-details {
+        max-height: 1000px;
+        margin-top: 20px;
+    }
+    
+    .account-info {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 14px;
+    }
+    
+    .account-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    
+    .account-row:last-child {
+        margin-bottom: 0;
+    }
+    
+    .account-label {
+        color: #888;
+        font-size: 13px;
+        font-weight: 500;
+    }
+    
+    .account-value {
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .copy-icon {
+        background: linear-gradient(135deg, #00f5ff, #a855f7);
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        color: #000;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 700;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .copy-icon:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 16px rgba(0, 245, 255, 0.4);
+    }
+    
+    .copy-icon:active {
+        transform: scale(0.95);
+    }
+    
+    .instruction-box {
+        background: rgba(0, 245, 255, 0.05);
+        border: 1px solid rgba(0, 245, 255, 0.15);
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 13px;
+        color: #bbb;
+        line-height: 1.7;
+    }
+    
+    .instruction-title {
+        font-weight: 700;
+        color: #00f5ff;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+    
+    .qris-container {
+        margin: 16px 0;
+        position: relative;
+    }
+    
+    .qris-img {
+        width: 100%;
+        border-radius: 14px;
+        border: 2px solid rgba(0, 245, 255, 0.2);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+    
+    .qris-img:hover {
+        transform: scale(1.02);
+    }
+    
+    .qris-error-box {
+        background: rgba(255, 153, 0, 0.1);
+        border: 1px solid rgba(255, 153, 0, 0.3);
+        border-radius: 12px;
+        padding: 12px;
+        margin-top: 12px;
+        text-align: center;
+    }
+    
+    .qris-error-text {
+        color: #ffaa00;
+        font-size: 13px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+    
+    .qris-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: linear-gradient(135deg, #ff9900, #ff6600);
+        color: #fff;
+        font-weight: 700;
+        font-size: 13px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .qris-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
+    }
+    
+    .download-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background: linear-gradient(135deg, #00f5ff, #a855f7);
+        color: #000;
+        font-weight: 700;
+        border: none;
+        padding: 14px;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-top: 12px;
+        transition: all 0.3s ease;
+        font-size: 14px;
+        box-shadow: 0 4px 16px rgba(0, 245, 255, 0.3);
+    }
+    
+    .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 24px rgba(0, 245, 255, 0.5);
+    }
+    
+    .download-btn:active {
+        transform: translateY(0);
+    }
+    
+    .download-btn.success {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        color: #fff;
+    }
+    
+    @media (max-width: 480px) {
+        .container {
+            padding: 24px 20px;
+        }
+        
+        .brand {
+            font-size: 36px;
+        }
+        
+        .contact-buttons {
+            flex-direction: column;
+            width: 100%;
+        }
+        
+        .contact-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="brand">DhanXzz</div>
+    <div class="subtitle">Secure Payment Gateway</div>
+
+    <div class="guide-box">
+        <div class="guide-title">📘 Cara Pembayaran</div>
+        <div class="guide-steps">
+            <strong>1️⃣</strong> Pilih metode pembayaran di bawah<br>
+            <strong>2️⃣</strong> Transfer sesuai nominal pesanan<br>
+            <strong>3️⃣</strong> Screenshot bukti pembayaran<br>
+            <strong>4️⃣</strong> Kirim bukti ke admin via TikTok/WhatsApp
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <div class="warning-title">⚡ WAJIB KIRIM BUKTI PEMBAYARAN!</div>
+        <div class="warning-text">Tanpa bukti pembayaran, pesanan tidak akan diproses!</div>
+        <div class="contact-buttons">
+            <a href="https://www.tiktok.com/@dhanxzzreall?_t=ZS-90fQD9Bltn0&_r=1" target="_blank" class="contact-btn">
+                🎵 TikTok Admin
+            </a>
+            <a href="https://wa.me/6287748834200" target="_blank" class="contact-btn">
+                💬 WhatsApp Admin
+            </a>
+        </div>
+    </div>
+
+    <div class="section-title">Pilih Metode Pembayaran</div>
+
+    <!-- QRIS -->
+    <div class="payment-card" onclick="toggleCard(this)">
+        <div class="card-header">
+            <div class="card-left">
+                <div class="method-icon">📱</div>
+                <div>
+                    <div class="method-name">QRIS</div>
+                    <div class="method-tag">Scan & Pay</div>
+                </div>
+            </div>
+            <div class="arrow">›</div>
+        </div>
+        <div class="card-details">
+            <div class="account-info">
+                <div class="account-row">
+                    <div class="account-label">Nama Penerima</div>
+                    <div class="account-value">DhanXzz</div>
+                </div>
+            </div>
+            
+            <div class="qris-container">
+                <img src="https://qu.ax/WhZdr.jpg" alt="QRIS DhanXzz" class="qris-img">
+            </div>
+            
+            <button class="download-btn" onclick="saveQR(event, this)">
+                ⬇️ Download QRIS
+            </button>
+            
+            <div class="qris-error-box">
+                <div class="qris-error-text">⚠️ Tombol Download tidak berfungsi?</div>
+                <div style="font-size: 12px; color: #ddd; margin-bottom: 12px; line-height: 1.6;">
+                    <strong>Cara Manual:</strong><br>
+                    1. Tekan & tahan gambar QR di atas<br>
+                    2. Pilih "Simpan Gambar" atau "Download"<br>
+                    3. Atau klik tombol di bawah ini:
+                </div>
+                <a href="https://qu.ax/WhZdr.jpg" target="_blank" class="qris-link" download="QRIS_DhanXzz.jpg">
+                    🔗 Buka & Simpan QRIS
+                </a>
+            </div>
+            
+            <div class="instruction-box">
+                <div class="instruction-title">📝 Langkah Pembayaran:</div>
+                Buka aplikasi e-wallet → Scan QR → Masukkan nominal → Bayar → Screenshot bukti → Kirim ke admin
+            </div>
+        </div>
+    </div>
+
+    <!-- DANA -->
+    <div class="payment-card" onclick="toggleCard(this)">
+        <div class="card-header">
+            <div class="card-left">
+                <div class="method-icon">💰</div>
+                <div>
+                    <div class="method-name">DANA</div>
+                    <div class="method-tag">Transfer Instan</div>
+                </div>
+            </div>
+            <div class="arrow">›</div>
+        </div>
+        <div class="card-details">
+            <div class="account-info">
+                <div class="account-row">
+                    <div class="account-label">Nomor DANA</div>
+                    <div class="account-value">
+                        <span id="dana-number">087748834200</span>
+                        <button class="copy-icon" onclick="copyText('dana-number', this, event)">📋</button>
+                    </div>
+                </div>
+                <div class="account-row">
+                    <div class="account-label">Nama Penerima</div>
+                    <div class="account-value">N-i</div>
+                </div>
+            </div>
+            <div class="instruction-box">
+                <div class="instruction-title">📝 Langkah Pembayaran:</div>
+                Buka DANA → Kirim → Masukkan nomor → Cek nama penerima → Transfer → Screenshot bukti
+            </div>
+        </div>
+    </div>
+
+    <!-- GOPAY -->
+    <div class="payment-card" onclick="toggleCard(this)">
+        <div class="card-header">
+            <div class="card-left">
+                <div class="method-icon">🏍️</div>
+                <div>
+                    <div class="method-name">GoPay</div>
+                    <div class="method-tag">Quick Transfer</div>
+                </div>
+            </div>
+            <div class="arrow">›</div>
+        </div>
+        <div class="card-details">
+            <div class="account-info">
+                <div class="account-row">
+                    <div class="account-label">Nomor GoPay</div>
+                    <div class="account-value">
+                        <span id="gopay-number">087748834200</span>
+                        <button class="copy-icon" onclick="copyText('gopay-number', this, event)">📋</button>
+                    </div>
+                </div>
+                <div class="account-row">
+                    <div class="account-label">Nama Penerima</div>
+                    <div class="account-value">N-i</div>
+                </div>
+            </div>
+            <div class="instruction-box">
+                <div class="instruction-title">📝 Langkah Pembayaran:</div>
+                Buka Gojek → GoPay → Transfer → Nomor HP → Cek nama penerima → Kirim → Screenshot bukti
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleCard(card) {
+    const cards = document.querySelectorAll('.payment-card');
+    const isActive = card.classList.contains('active');
+    
+    cards.forEach(c => c.classList.remove('active'));
+    
+    if (!isActive) {
+        card.classList.add('active');
+    }
+}
+
+function copyText(id, btn, e) {
+    e.stopPropagation();
+    const text = document.getElementById(id).innerText;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓';
+        btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+        
+        setTimeout(() => {
+            btn.textContent = '📋';
+            btn.style.background = 'linear-gradient(135deg, #00f5ff, #a855f7)';
+        }, 2000);
+    });
+}
+
+function saveQR(e, btn) {
+    e.stopPropagation();
+    
+    const originalText = btn.textContent;
+    btn.textContent = '⏳ Mengunduh...';
+    btn.disabled = true;
+    
+    // Metode 1: Direct link download (lebih reliable)
+    const link = document.createElement('a');
+    link.href = 'https://qu.ax/WhZdr.jpg';
+    link.download = 'QRIS_DhanXzz.jpg';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Feedback sukses
+    setTimeout(() => {
+        btn.textContent = '✅ Berhasil! Cek Downloads';
+        btn.classList.add('success');
+        
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.classList.remove('success');
+            btn.disabled = false;
+        }, 3000);
+    }, 500);
+}
+</script>
+</body>
+</html>
